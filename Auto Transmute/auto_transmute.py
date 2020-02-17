@@ -1,8 +1,9 @@
 import keyboard
-import pyautogui
+from pynput.mouse import Button, Controller
 import time
+import threading
 
-
+mouse = Controller()
 print("Welcome! This script will help you automatically transmute skyrim ores from iron to gold."
       "\nThis will also calculate for optimal casting so be sure to enter the correct values.")
 
@@ -14,10 +15,10 @@ def initialize_magicka():
     return mag
 
 def initialize_num_ores():    
-    ores = int(input('How many iron ore do you have?: '))
+    ores = int(input('How many iron ore do you have (EVEN NUMBERS ARE IDEAL)?: '))
     while ores <= 0:
-        print('Please input a value above zero for the number of iron ores.')
-        ores = int(input('How many iron ore do you have?: '))
+        print('Please input a number above zero for the number of iron ores.')
+        ores = int(input('How many iron ore do you have (EVEN NUMBERS ARE IDEAL)?: '))
     return ores
 
 def initialize_transmute_cost():
@@ -68,22 +69,24 @@ print('Press Ctrl+C at any point when tabbed into the console window to quit the
 print('Waiting 10 seconds then starting to send keystrokes. Please tab back into the game.')
 time.sleep(10)
 try:
-    for transmute_count in range(num_ores):
+    for transmute_count in range(int(num_ores / casts_per_wait)):
         for j in range(casts_per_wait):
             if not single_cast:
-                pyautogui.mouseDown(button='left')
-                pyautogui.mouseDown(button='right')
+                time.sleep(0.1)
+                mouse.press(Button.left)
                 time.sleep(1)
-                pyautogui.mouseUp(button='left')
-                time.sleep(0.25)
-                pyautogui.mouseUp(button='right')
+                mouse.release(Button.left)
+                time.sleep(0.1)
+                mouse.press(Button.right)
+                time.sleep(1)
+                mouse.release(Button.right)
             else:
-                pyautogui.mouseDown(button='left')
+                mouse.press(Button.left)
                 time.sleep(1)
-                pyautogui.mouseUp(button='left')
-        time.sleep(0.25)
+                mouse.release(Button.left)
+        time.sleep(1)
         keyboard.send('t')
-        time.sleep(0.25)
+        time.sleep(0.1)
         keyboard.send('enter')
         time.sleep(1)
 except KeyboardInterrupt:
