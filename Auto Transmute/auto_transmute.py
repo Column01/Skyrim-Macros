@@ -3,7 +3,7 @@ import pyautogui
 import time
 
 
-print("Welcome! This script will help you automatically transmute skyrim ores from iron to gold. 
+print("Welcome! This script will help you automatically transmute skyrim ores from iron to gold."
       "\nThis will also calculate for optimal casting so be sure to enter the correct values.")
 
 def initialize_magicka():
@@ -55,7 +55,7 @@ else:
 if single_cast:
     print("Great! Not it's time to setup for transmuting. I detected that you can only cast the spell with one hand, so "
         "please equip the transmute ores spell in your main hand (left mouse button) and stand in a safe location."
-        "\nMake sure you have your ores in your inventory as well. 
+        "\nMake sure you have your ores in your inventory as well. "
         "This will take twice as long to complete since it has to wait twice per ore to get from iron to gold.")
 else:
     print("Great! Not it's time to setup for transmuting. "
