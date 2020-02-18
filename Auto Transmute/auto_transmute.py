@@ -83,6 +83,7 @@ try:
                 time.sleep(1)
                 mouse.release(Button.right)
             else:
+                time.sleep(0.25)
                 mouse.press(Button.left)
                 time.sleep(1)
                 mouse.release(Button.left)

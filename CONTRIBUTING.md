@@ -8,7 +8,7 @@
 
 - Update the README.md with the following information:
 	- Every heading uses two hashes like this: `## Test`
-    - Include a heading with the name of your script
-    - Include a section of notes about the script. Use a markdown list to display them. If there are no notes, just leave it empty.
-    - Any dependencies it has in a markdown list (modules you used to create them and a link to the pypi page for them)
+    - Include a heading with the name of your script and `(Author: <name>)` after it. You can link your github profile in the name spot.
+    - Include a section of notes about the script. Use a markdown list to display them. Do not leave the notes blank, you should have something in that spot.
+    - Include a list of dependencies in a markdown list (modules you used to create them and a link to the pypi page for them)
     - If you get lost, look at the other sections in the README of other scripts.
