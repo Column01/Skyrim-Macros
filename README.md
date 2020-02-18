@@ -1,6 +1,6 @@
 # Skyrim Macros
 
-A Collection of macros I'm writing for my skyrim playthrough to make things easier.
+A Collection of macros I'm writing for my skyrim playthrough to make things easier. If you make a cool macro using Python 3, please submit a pull request to add it here!
 
 ## Python Version
 
