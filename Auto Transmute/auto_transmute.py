@@ -1,7 +1,7 @@
 import keyboard
 from pynput.mouse import Button, Controller
 import time
-import threading
+import math
 
 mouse = Controller()
 print("Welcome! This script will help you automatically transmute skyrim ores from iron to gold."
@@ -15,10 +15,10 @@ def initialize_magicka():
     return mag
 
 def initialize_num_ores():    
-    ores = int(input('How many iron ore do you have (EVEN NUMBERS ARE IDEAL)?: '))
+    ores = int(input('How many iron ore do you have (Even numbers are best)?: '))
     while ores <= 0:
         print('Please input a number above zero for the number of iron ores.')
-        ores = int(input('How many iron ore do you have (EVEN NUMBERS ARE IDEAL)?: '))
+        ores = int(input('How many iron ore do you have (Even numbers are best)?: '))
     return ores
 
 def initialize_transmute_cost():
@@ -32,7 +32,7 @@ def initialize_transmute_cost():
 magicka = initialize_magicka()
 num_ores = initialize_num_ores()
 transmute_cost = initialize_transmute_cost()
-print(f'Total Magicka: {magicka}\nNumber of Iron Ores: {num_ores}\nTransmute Cost: {transmute_cost}')
+print(f'Total Magicka: {magicka}\nNumber of Iron Ores: {num_ores}\nTransmute Cost: {transmute_cost}\n')
 
 # Not enough magicka to cast the spell
 if magicka < transmute_cost:
@@ -49,7 +49,6 @@ if casts_per_wait >= 1:
     single_cast = False
 else:
     casts_per_wait = 1
-    # double the number of ores to make sure we go from iron > silver > gold
     num_ores * 2
     single_cast = True
 
@@ -69,7 +68,10 @@ print('Press Ctrl+C at any point when tabbed into the console window to quit the
 print('Waiting 10 seconds then starting to send keystrokes. Please tab back into the game.')
 time.sleep(10)
 try:
-    for transmute_count in range(int(num_ores / casts_per_wait)):
+    # We use the number of ores / casts per wait so we can divide it into a number of iterations to complete the total amount of ores the user wanted.
+    # This number will change a depending on if the user can only single cast the spell or dual cast
+    # A side effect of this is that odd numbers will cast an extra time to compensate for the odd division result
+    for transmute_count in range(math.ceil(num_ores / casts_per_wait)):
         for j in range(casts_per_wait):
             if not single_cast:
                 time.sleep(0.1)
