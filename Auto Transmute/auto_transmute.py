@@ -33,10 +33,13 @@ def initialize_transmute_cost():
 
 
 # Initialize the variables needed to calculate casts and whatnot.
-magicka = initialize_magicka()
-num_ores = initialize_num_ores()
-transmute_cost = initialize_transmute_cost()
-print(f'Total Magicka: {magicka}\nNumber of Iron Ores: {num_ores}\nTransmute Cost: {transmute_cost}\n')
+try:
+    num_ores = initialize_num_ores()
+    magicka = initialize_magicka()
+    transmute_cost = initialize_transmute_cost()
+except KeyboardInterrupt:
+    print("Quitting due to keyboard interrupt.")
+    quit(0)
 
 # Not enough magicka to cast the spell
 if magicka < transmute_cost:
@@ -48,13 +51,23 @@ casts_per_wait = magicka / (transmute_cost * 2)
 
 # Checks if the casts per wait is higher than 1 which means we can dual cast the spell.
 # If it isn't that means we can only single cast and we will need to double the number of ores to make sure they all get transmuted to gold.
+iteration_time = -1.0
 if casts_per_wait >= 1:
     casts_per_wait = int(casts_per_wait)
+    # 2.2 seconds to cast, 2.1 seconds to wait
+    iteration_time = 2.2 + 2.1
     single_cast = False
 else:
     casts_per_wait = 1
     num_ores = num_ores * 2
+    # 1.25 seconds to cast, 2.1 seconds to wait
+    iteration_time = 1.25 + 2.1
     single_cast = True
+
+# Calculate the amount of time it may take to convert all ores
+num_iterations = math.ceil(num_ores / casts_per_wait)
+mins, secs = divmod(iteration_time * num_iterations, 60)
+print("Estimated time required: {} minute(s) and {} second(s)\n".format(int(mins), int(secs)))
 
 if single_cast:
     print("Great! Now it's time to setup for transmuting. I detected that you can only cast the spell with one hand, "
@@ -66,16 +79,18 @@ else:
           "Please equip the transmute ores spell in both hands and stand in a safe location."
           "\nMake sure you have your ores in your inventory as well.")
 
-print('Press the "s" key to begin the transmuting.')
-keyboard.wait('s')
-print('Press Ctrl+C at any point when tabbed into the console window to quit the transmutation process.')
-print('Waiting 10 seconds then starting to send keystrokes. Please tab back into the game.')
-time.sleep(10)
+
 try:
+    print('Press the "s" key to begin the transmuting.')
+    keyboard.wait('s')
+    print('Press Ctrl+C at any point when tabbed into the console window to quit the transmutation process.')
+    print('Waiting 10 seconds then starting to send keystrokes. Please tab back into the game.')
+    time.sleep(10)
+
     # We use the number of ores / casts per wait so we can divide it into a number of iterations to complete the total amount of ores the user wanted.
     # This number will change a depending on if the user can only single cast the spell or dual cast
     # A side effect of this is that odd numbers will cast an extra time to compensate for the odd division result
-    for transmute_count in range(math.ceil(num_ores / casts_per_wait)):
+    for transmute_count in range(num_iterations):
         for j in range(casts_per_wait):
             if not single_cast:
                 time.sleep(0.1)
