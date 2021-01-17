@@ -32,10 +32,14 @@ def initialize_wait_amount():
     return wait
 
 
-# Initialize the variables needed to calculate casts and whatnot.
-magicka = initialize_magicka()
-soultrap_cost = initialize_soultrap_cost()
-num_waits = initialize_wait_amount()
+try:
+    # Initialize the variables needed to calculate casts and whatnot.
+    magicka = initialize_magicka()
+    soultrap_cost = initialize_soultrap_cost()
+    num_waits = initialize_wait_amount()
+except KeyboardInterrupt:
+    print("Quitting due to keyboard interrupt.")
+    quit(0)
 
 
 # Not enough magicka to cast the spell
@@ -45,17 +49,22 @@ if magicka < soultrap_cost:
 
 # Number of times to cast the spell per wait command.
 casts_per_wait = int(magicka / soultrap_cost)
+time_per_wait = (1.25 * casts_per_wait) + 2.1
+
+mins, secs = divmod((time_per_wait * num_waits), 60)
+print("Estimated time required: {} minute(s) and {} second(s)\n".format(int(mins), int(secs)))
 
 print("Great! Now it's time to setup for training. "
       "Please kill a mob (anything \"living\" works. A deer, a wolf, anything) and equip the soul trap spell in your main hand."
       "\nStand in a safe location and make sure you have USLEEP disabled (if you use it) as it patches this method of training conjuration.")
 
-print('Press the "s" key to begin the casting soul trap.')
-keyboard.wait('s')
-print('Press Ctrl+C at any point when tabbed into the console window to quit the casting process.')
-print('Waiting 10 seconds then starting to send keystrokes. Please tab back into the game.')
-time.sleep(10)
+
 try:
+    print('Press the "s" key to begin the casting soul trap.')
+    keyboard.wait('s')
+    print('Press Ctrl+C at any point when tabbed into the console window to quit the casting process.')
+    print('Waiting 10 seconds then starting to send keystrokes. Please tab back into the game.')
+    time.sleep(10)
     # Run the macro for "num_waits" iterations
     for transmute_count in range(num_waits):
         # Cast the spell as many times as possible and then wait for an hour to regain magicka
