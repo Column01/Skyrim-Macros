@@ -1,11 +1,12 @@
 import keyboard
 from pynput.mouse import Button, Controller
 import time
-import math
+
 
 mouse = Controller()
 print("Welcome! This script will help you automatically shoot a corpse with soul trap to train conjuration."
       "\nThis will also calculate for optimal casting so be sure to enter the correct values.")
+
 
 def initialize_magicka():
     mag = int(input('How much magicka do you have?: '))
@@ -14,12 +15,14 @@ def initialize_magicka():
         mag = int(input('How much magicka do you have?: '))
     return mag
 
+
 def initialize_soultrap_cost():
     cost = int(input('What does it cost for you to cast the soultrap spell?: '))
     while cost <= 0:
         print('Please input a value above zero for the cost of the soultrap spell.')
         cost = int(input('How much magicka does it cost for you to cast the soultrap spell?: '))
     return cost
+
 
 def initialize_wait_amount():
     wait = int(input('How many times would you like to wait when you run out of magicka? '))
@@ -28,23 +31,24 @@ def initialize_wait_amount():
         wait = int(input('How many times would you like to wait when you run out of magicka? '))
     return wait
 
+
 # Initialize the variables needed to calculate casts and whatnot.
 magicka = initialize_magicka()
 soultrap_cost = initialize_soultrap_cost()
 num_waits = initialize_wait_amount()
-print(f'Total Magicka: {magicka}\nSoul Trap Cost: {soultrap_cost}\nNumber of waits desired: {num_waits}')
+
 
 # Not enough magicka to cast the spell
 if magicka < soultrap_cost:
-    exit('You do not have enough magicka to cast the spell.' 
+    exit('You do not have enough magicka to cast the spell.'
          '\nPlease make sure you level up your character some or clear and debuffs that affect magicka before proceeding.')
 
 # Number of times to cast the spell per wait command.
 casts_per_wait = int(magicka / soultrap_cost)
 
-print("Great! Not it's time to setup for training. "
-    "Please kill a mob (anything \"living\" works. A deer, a wolf, anything) and equip the soul trap spell in your main hand."
-    "\nStand in a safe location and make sure you have USLEEP disabled (if you use it) as it patches this method of training conjuration.")
+print("Great! Now it's time to setup for training. "
+      "Please kill a mob (anything \"living\" works. A deer, a wolf, anything) and equip the soul trap spell in your main hand."
+      "\nStand in a safe location and make sure you have USLEEP disabled (if you use it) as it patches this method of training conjuration.")
 
 print('Press the "s" key to begin the casting soul trap.')
 keyboard.wait('s')
