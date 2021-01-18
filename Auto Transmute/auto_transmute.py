@@ -90,8 +90,8 @@ try:
     # We use the number of ores / casts per wait so we can divide it into a number of iterations to complete the total amount of ores the user wanted.
     # This number will change a depending on if the user can only single cast the spell or dual cast
     # A side effect of this is that odd numbers will cast an extra time to compensate for the odd division result
-    for transmute_count in range(num_iterations):
-        for j in range(casts_per_wait):
+    for _ in range(num_iterations):
+        for _ in range(casts_per_wait):
             if not single_cast:
                 time.sleep(0.1)
                 mouse.press(Button.left)
