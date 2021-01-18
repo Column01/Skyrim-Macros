@@ -21,15 +21,13 @@ A Collection of macros I'm writing for my Skyrim play through to make things eas
 - [keyboard](https://pypi.org/project/keyboard/)
 - [pynput](https://pypi.org/project/pynput/)
 
-## Auto Conjuration (Author: Column01)
+## Auto Cast and Auto Cast Hold (Author: Column01)
 
 ### Notes
 - Stand in a safe spot
 - Use `Ctrl+C` to exit the program. You must be tabbed into the console window for it to work
-- Using a dead animal is the easiest way since they are easy to kill (anything that is considered "living" will work)
-- Disable [USLEEP](https://www.nexusmods.com/skyrim/mods/71214) as it patches this method of training conjuration
-- 1000 casts generally will level conjuration to 100 from 15 and takes about an hour to complete.
 - Install the dependencies below
+- Read the README in the respective folder for guides on how to level different schools of magic.
 
 ### Dependencies
 - [keyboard](https://pypi.org/project/keyboard/)
